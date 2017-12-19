@@ -1,0 +1,18 @@
+{% extends "templates/layout.jinja2" %}
+{% block content %}
+
+<ul>
+    <li>
+        <a href="/">Go to main page</a>
+    </li>
+</ul>
+<h4>{{ page_title }}</h4>
+<ul>
+    {% for child in context.values() %}
+        <li>
+            <a href="{{ request.resource_url(context) }}{{ child.id }}">{{ child.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

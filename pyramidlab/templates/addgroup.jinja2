@@ -1,0 +1,12 @@
+{% extends "templates/layout.jinja2" %}
+{% block content %}
+<a href="/">Go to main page</a>
+<p>{{ message }}</p>
+<form method="post" action="{{ request.path }}">
+    <p>
+        <label for="name">Group name</label><br>
+        <input type="text" name="name" value="">
+    </p>
+    <input type="submit" name="submit">
+</form>
+{% endblock content %}
