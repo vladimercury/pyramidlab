@@ -1,8 +1,7 @@
 {% extends "templates/layout.jinja2" %}
 {% block content %}
 
-    <h2>{{ request.authenticated_userid }}</h2>
-    <p>The root might have some other text.</p>
+    <h2>{{ user.first_name }} {{ user.last_name }} @ {{ user.login }}</h2>
     {% include "templates/contents.jinja2" %}
 
 {% endblock content %}

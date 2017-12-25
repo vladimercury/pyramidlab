@@ -6,6 +6,8 @@ from .user_group import User
 
 from .meta import Base
 
+from datetime import datetime
+
 
 class Record(Base):
     __tablename__ = 'records'
@@ -19,10 +21,10 @@ class Record(Base):
 
     author = relationship("User", back_populates='records')
 
-    def __init__(self, author_user_id, author_group_id, date, title, content):
-        self.user_id = author_user_id
+    def __init__(self, author, title, content, author_group_id=None):
+        self.author = author
         self.group_id = author_group_id
-        self.date = date
+        self.date = datetime.now()
         self.title = title
         self.content = content
 

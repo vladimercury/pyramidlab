@@ -1,0 +1,27 @@
+{% extends "templates/layout.jinja2" %}
+{% block content %}
+
+{% include "templates/breadcrumbs.jinja2" %}
+<form method="post" action="{{ request.path }}">
+    <input type="hidden" name="action" value="{% if in_group %}leave{% else %}join{% endif %}">
+    <input type="submit" name="submit" value="{% if in_group %}Leave{% else %}Join{% endif %} group">
+</form>
+{% if in_group %}
+<form method="post" action="{{ request.path }}">
+    <input type="hidden" name="action" value="post">
+    <input type="text" name="post_title" value="" placeholder="Title">
+    <input type="text" name="post_content" value="" placeholder="Content">
+    <input type="submit" name="submit" value="Post">
+</form>
+{% endif %}
+<h4>{{ page_title }}</h4>
+{% for record in context.values() | sort(attribute='date',reverse=True) %}
+    <hr>
+    <div>
+        <h5>{{ record.title }}</h5>
+        <h6>{{ record.date }} by {{ record.author.first_name }} {{ record.author.last_name }}</h6>
+        <p>{{ record.content }}</p>
+    </div>
+{% endfor %}
+
+{% endblock content %}

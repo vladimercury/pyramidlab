@@ -1,16 +1,12 @@
 {% extends "templates/layout.jinja2" %}
 {% block content %}
 
-<ul>
-    <li>
-        <a href="/">Go to main page</a>
-    </li>
-</ul>
+{% include "templates/breadcrumbs.jinja2" %}
 <h4>{{ page_title }}</h4>
 <ul>
-    {% for child in context.values() %}
+    {% for child in context.values() | sort(attribute='title') %}
         <li>
-            <a href="{{ request.resource_url(context) }}{{ child.id }}">{{ child.name }}</a>
+            <a href="{{ request.resource_url(child) }}">{{ child.title }}</a>
         </li>
     {% endfor %}
 </ul>

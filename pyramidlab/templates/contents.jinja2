@@ -1,14 +1,21 @@
+<form method="post" action="{{ request.path }}">
+    <input type="hidden" name="action" value="post">
+    <input type="text" name="post_title" value="" placeholder="Title">
+    <input type="text" name="post_content" value="" placeholder="Content">
+    <input type="submit" name="submit" value="Post">
+</form>
 <h4>Actions</h4>
 <ul>
-    <li>
-        <a href="/addgroup">Add Group</a>
-    </li>
+    <li><a href="/addgroup">Add Group</a></li>
+    <li><a href="/groups">Group List</a></li>
+    <li><a href="/users">User List</a></li>
 </ul>
-<h4>Contents</h4>
-<ul>
-    {% for child in context.values() %}
-        <li>
-            <a href="{{ request.resource_url(child) }}">{{ child.title }}</a>
-        </li>
-    {% endfor %}
-</ul>
+<h4>Own posts</h4>
+{% for record in user.records | rejectattr('group_id') | sort(attribute='date',reverse=True) %}
+    <hr>
+    <div>
+        <h5>{{ record.title }}</h5>
+        <h6>{{ record.date }}</h6>
+        <p>{{ record.content }}</p>
+    </div>
+{% endfor %}
